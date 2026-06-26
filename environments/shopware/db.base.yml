@@ -21,5 +21,9 @@ services:
     entrypoint: |
       /bin/bash -c '
         echo "$$DB_AUTO_CREATE_SH" > /docker-entrypoint-initdb.d/db-auto-create.sh
-        exec /usr/local/bin/docker-entrypoint.sh mysqld
+        case "${MYSQL_DISTRIBUTION:-mariadb}" in
+          mariadb) DB_DAEMON=mariadbd ;;
+          *) DB_DAEMON=mysqld ;;
+        esac
+        exec /usr/local/bin/docker-entrypoint.sh "$$DB_DAEMON"
       '

@@ -6,6 +6,5 @@ services:
       - MYSQL_USER=${MYSQL_USER:-magento}
       - MYSQL_PASSWORD=${MYSQL_PASSWORD:-magento}
     command:
-      - mysqld
       - --max_allowed_packet=1024M
       - --explicit_defaults_for_timestamp=on
